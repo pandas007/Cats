@@ -38,6 +38,7 @@ ext {
     glideVersion = '4.11.0'
     moxyVersion = '2.0.2'
     butterKnifeVersion = '10.2.1'
+    roomVersion = '1.1.1'
 
     dependencies = [
             kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
@@ -51,19 +52,28 @@ ext {
 
             rxJava: "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
             rxAndroid: "io.reactivex.rxjava2:rxandroid:$rxJavaAndroidVersion",
+
             retrofit2: "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitConverterGson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitRxAdapter: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+
             gson: "com.google.code.gson:gson:$gsonVersion",
+
             glide: "com.github.bumptech.glide:glide:$glideVersion",
             glideCompiler: "com.github.bumptech.glide:compiler:$glideVersion",
+
             moxy: "com.github.moxy-community:moxy:$moxyVersion",
             moxyCompiler: "com.github.moxy-community:moxy-compiler:$moxyVersion",
             moxyAppcompat: "com.github.moxy-community:moxy-androidx:$moxyVersion",
             moxyMaterial: "com.github.moxy-community:moxy-material:$moxyVersion",
             moxyKtx: "com.github.moxy-community:moxy-ktx:$moxyVersion",
+
             butterKnife: "com.jakewharton:butterknife:$butterKnifeVersion",
-            butterKnifeCompiler: "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+            butterKnifeCompiler: "com.jakewharton:butterknife-compiler:$butterKnifeVersion",
+
+            room: "android.arch.persistence.room:runtime:$roomVersion",
+            roomCompiler: "android.arch.persistence.room:compiler:$roomVersion",
+            roomRx: "android.arch.persistence.room:rxjava2:$roomVersion"
     ]
 }
 

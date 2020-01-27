@@ -2,8 +2,10 @@ package com.pandasby.cats.main
 
 import com.pandasby.cats.app.App
 import com.pandasby.domain.CATS_LIMIT
+import com.pandasby.domain.business.FavoriteCatsInteractor
 import com.pandasby.domain.business.GetCatsInteractor
 import com.pandasby.domain.entity.CatEntity
+import com.pandasby.domain.entity.FavoriteCatEntity
 import io.reactivex.disposables.CompositeDisposable
 import moxy.InjectViewState
 import moxy.MvpPresenter
@@ -14,6 +16,8 @@ class CatsPresenter: MvpPresenter<CatsView>() {
 
     @Inject
     lateinit var getCatsInteractor: GetCatsInteractor
+    @Inject
+    lateinit var favoriteCatsInteractor: FavoriteCatsInteractor
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -27,6 +31,13 @@ class CatsPresenter: MvpPresenter<CatsView>() {
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable.dispose()
+    }
+
+    internal fun onCatClicked(catEntity: CatEntity) {
+        compositeDisposable.add(
+            favoriteCatsInteractor.addFavoriteCat(FavoriteCatEntity(catEntity.id, catEntity.url))
+            .subscribe { viewState.showAddFavoriteCatMessage() }
+        )
     }
 
     private fun subscribeOnCatList() {

@@ -11,7 +11,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.pandasby.cats.R
 import com.pandasby.domain.entity.CatEntity
 
-class CatViewHolder(parent: ViewGroup)
+class CatViewHolder(parent: ViewGroup,
+                    onFavoriteClickListener: (CatEntity) -> Unit)
     : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_cat, parent, false)) {
 
     @BindView(R.id.iv_cat)
@@ -21,6 +22,7 @@ class CatViewHolder(parent: ViewGroup)
 
     init {
         ButterKnife.bind(this, itemView)
+        itemView.setOnClickListener { onFavoriteClickListener.invoke(cat) }
     }
 
     internal fun bind(catEntity: CatEntity) {

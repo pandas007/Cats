@@ -3,6 +3,7 @@ package com.pandasby.cats.main
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import butterknife.BindView
@@ -23,13 +24,14 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
     @BindView(R.id.progress)
     lateinit var progressBar: ProgressBar
 
-    private val adapter: CatsAdapter = CatsAdapter(null)
+    private var adapter: CatsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cats)
         ButterKnife.bind(this)
 
+        adapter = CatsAdapter(null, presenter::onCatClicked)
         with(recyclerView) {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = this@CatsActivity.adapter
@@ -45,7 +47,11 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
         progressBar.visibility = View.INVISIBLE
 
         if (catList.isNotEmpty()) {
-            adapter.update(catList)
+            adapter?.update(catList)
         }
+    }
+
+    override fun showAddFavoriteCatMessage() {
+        Toast.makeText(this, getString(R.string.favorite_cat_added), Toast.LENGTH_SHORT).show()
     }
 }

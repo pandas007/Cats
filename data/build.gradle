@@ -34,5 +34,9 @@ dependencies {
     api dependency.retrofit2
     api dependency.gson
 
+    api dependency.room
+    api dependency.roomRx
+    kapt dependency.roomCompiler
+
     api project(path: ':domain')
 }
