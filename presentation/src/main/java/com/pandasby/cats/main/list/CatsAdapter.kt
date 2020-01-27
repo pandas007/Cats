@@ -5,10 +5,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pandasby.domain.entity.CatEntity
 
 class CatsAdapter(private var catList: ArrayList<CatEntity>?,
-                  private val onClickListener: (CatEntity) -> Unit) : RecyclerView.Adapter<CatViewHolder>() {
+                  private val onClickListener: (CatEntity) -> Unit,
+                  private val onLongClickListener: (CatEntity) -> Unit) : RecyclerView.Adapter<CatViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
-        return CatViewHolder(parent, onClickListener)
+        return CatViewHolder(parent, onClickListener, onLongClickListener)
     }
 
     override fun getItemCount(): Int {

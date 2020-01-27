@@ -12,7 +12,8 @@ import com.pandasby.cats.R
 import com.pandasby.domain.entity.CatEntity
 
 class CatViewHolder(parent: ViewGroup,
-                    onClickListener: (CatEntity) -> Unit)
+                    onClickListener: (CatEntity) -> Unit,
+                    onLongClickListener: (CatEntity) -> Unit)
     : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_cat, parent, false)) {
 
     @BindView(R.id.iv_cat)
@@ -23,6 +24,10 @@ class CatViewHolder(parent: ViewGroup,
     init {
         ButterKnife.bind(this, itemView)
         itemView.setOnClickListener { onClickListener.invoke(cat) }
+        itemView.setOnLongClickListener {
+            onLongClickListener.invoke(cat)
+            return@setOnLongClickListener true
+        }
     }
 
     internal fun bind(catEntity: CatEntity) {

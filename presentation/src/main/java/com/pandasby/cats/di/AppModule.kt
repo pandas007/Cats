@@ -25,9 +25,13 @@ import javax.inject.Singleton
 @Module
 class AppModule(private val app: Application) {
 
+    //TODO разбить на модули !!!
+
     @Provides
     @Singleton
     fun provideContext(): Context = app
+
+    //==============Rest=================
 
     @Provides
     @Singleton
@@ -47,8 +51,13 @@ class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
+    fun getCatsRepository(restApi: RestApi): CatsRepository = CatsRepositoryImpl(RestService(restApi))
+
+    @Provides
+    @Singleton
     fun getUiThread(): PostExecutionThread = UIThread()
 
+    //==============Local database=================
     @Provides
     @Singleton
     fun getCatsDatabase(context: Context): CatsDatabase =
@@ -58,11 +67,6 @@ class AppModule(private val app: Application) {
     @Singleton
     fun getFavoriteCatsDao(catsDatabase: CatsDatabase): FavoriteCatsDao =
         catsDatabase.getFavoriteCatsDao()
-
-
-    @Provides
-    @Singleton
-    fun getCatsRepository(restApi: RestApi): CatsRepository = CatsRepositoryImpl(RestService(restApi))
 
     @Provides
     @Singleton

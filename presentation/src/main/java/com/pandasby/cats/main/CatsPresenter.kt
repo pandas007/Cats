@@ -40,6 +40,10 @@ class CatsPresenter: MvpPresenter<CatsView>() {
         )
     }
 
+    internal fun onCatLongClicked(catEntity: CatEntity) {
+        //TODO save image to storage
+    }
+
     private fun subscribeOnCatList() {
         compositeDisposable.add(getCatsInteractor.getCatListSingle(CATS_LIMIT)
             .doOnSubscribe { viewState.showProgress() }
