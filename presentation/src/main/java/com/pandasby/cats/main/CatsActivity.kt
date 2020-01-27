@@ -1,8 +1,8 @@
 package com.pandasby.cats.main
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.pandasby.cats.R
@@ -27,7 +27,7 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
         ButterKnife.bind(this)
 
         with(recyclerView) {
-            layoutManager = LinearLayoutManager(this@CatsActivity)
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = this@CatsActivity.adapter
             setHasFixedSize(true)
         }
