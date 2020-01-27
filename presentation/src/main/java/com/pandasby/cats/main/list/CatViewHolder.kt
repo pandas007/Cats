@@ -29,6 +29,7 @@ class CatViewHolder(parent: ViewGroup)
             .load(catEntity.url)
             .dontAnimate()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.ic_image_placeholder)
             .into(catImage)
     }
 }

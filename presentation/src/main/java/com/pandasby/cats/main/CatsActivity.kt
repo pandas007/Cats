@@ -1,6 +1,8 @@
 package com.pandasby.cats.main
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import butterknife.BindView
@@ -18,6 +20,8 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
 
     @BindView(R.id.rv_cats)
     lateinit var recyclerView: RecyclerView
+    @BindView(R.id.progress)
+    lateinit var progressBar: ProgressBar
 
     private val adapter: CatsAdapter = CatsAdapter(null)
 
@@ -33,7 +37,13 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
         }
     }
 
+    override fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
     override fun showCats(catList: ArrayList<CatEntity>) {
+        progressBar.visibility = View.INVISIBLE
+
         if (catList.isNotEmpty()) {
             adapter.update(catList)
         }
