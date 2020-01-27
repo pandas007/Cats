@@ -1,7 +1,14 @@
 apply plugin: 'java-library'
 
 dependencies {
+    def dependency = rootProject.ext.dependencies
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api dependency.kotlin
+
+    api dependency.rxJava
+
+    implementation dependency.javaxInject
 }
 
 sourceCompatibility = "7"
