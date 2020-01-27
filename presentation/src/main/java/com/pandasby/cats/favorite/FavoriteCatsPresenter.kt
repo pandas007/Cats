@@ -1,10 +1,7 @@
-package com.pandasby.cats.main
+package com.pandasby.cats.favorite
 
 import com.pandasby.cats.app.App
-import com.pandasby.domain.CATS_LIMIT
 import com.pandasby.domain.business.FavoriteCatsInteractor
-import com.pandasby.domain.business.GetCatsInteractor
-import com.pandasby.domain.entity.CatEntity
 import com.pandasby.domain.entity.FavoriteCatEntity
 import io.reactivex.disposables.CompositeDisposable
 import moxy.InjectViewState
@@ -12,10 +9,8 @@ import moxy.MvpPresenter
 import javax.inject.Inject
 
 @InjectViewState
-class CatsPresenter: MvpPresenter<CatsView>() {
+class FavoriteCatsPresenter : MvpPresenter<FavoriteCatsView>() {
 
-    @Inject
-    lateinit var getCatsInteractor: GetCatsInteractor
     @Inject
     lateinit var favoriteCatsInteractor: FavoriteCatsInteractor
 
@@ -25,7 +20,7 @@ class CatsPresenter: MvpPresenter<CatsView>() {
         super.onFirstViewAttach()
         App.appComponent?.inject(this)
 
-        subscribeOnCatList()
+        subscribeOnFavoriteCatsList()
     }
 
     override fun onDestroy() {
@@ -33,20 +28,13 @@ class CatsPresenter: MvpPresenter<CatsView>() {
         compositeDisposable.dispose()
     }
 
-    internal fun onCatClicked(catEntity: CatEntity) {
-        compositeDisposable.add(
-            favoriteCatsInteractor.addFavoriteCat(FavoriteCatEntity(catEntity.id, catEntity.url))
-            .subscribe { viewState.showAddFavoriteCatMessage() }
-        )
-    }
-
-    private fun subscribeOnCatList() {
-        compositeDisposable.add(getCatsInteractor.getCatListSingle(CATS_LIMIT)
+    private fun subscribeOnFavoriteCatsList() {
+        compositeDisposable.add(favoriteCatsInteractor.getFavoriteCatsList()
             .doOnSubscribe { viewState.showProgress() }
-            .subscribe(this::onCatListReceived))
+            .subscribe(this::onFavoriteCatListReceived))
     }
 
-    private fun onCatListReceived(catList: List<CatEntity>) {
+    private fun onFavoriteCatListReceived(catList: List<FavoriteCatEntity>) {
         if (catList.isNotEmpty()) {
             viewState.showCats(ArrayList(catList))
         }

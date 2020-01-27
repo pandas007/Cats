@@ -1,5 +1,6 @@
 package com.pandasby.cats.di
 
+import com.pandasby.cats.favorite.FavoriteCatsPresenter
 import com.pandasby.cats.main.CatsPresenter
 import dagger.Component
 import javax.inject.Singleton
@@ -9,4 +10,5 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(presenter: CatsPresenter)
+    fun inject(presenter: FavoriteCatsPresenter)
 }

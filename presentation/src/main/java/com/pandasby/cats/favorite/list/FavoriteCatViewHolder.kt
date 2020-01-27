@@ -1,4 +1,4 @@
-package com.pandasby.cats.main.list
+package com.pandasby.cats.favorite.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,26 +9,24 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.pandasby.cats.R
-import com.pandasby.domain.entity.CatEntity
+import com.pandasby.domain.entity.FavoriteCatEntity
 
-class CatViewHolder(parent: ViewGroup,
-                    onClickListener: (CatEntity) -> Unit)
+class FavoriteCatViewHolder(parent: ViewGroup)
     : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_cat, parent, false)) {
 
     @BindView(R.id.iv_cat)
     lateinit var catImage: ImageView
 
-    private lateinit var cat: CatEntity
+    private lateinit var cat: FavoriteCatEntity
 
     init {
         ButterKnife.bind(this, itemView)
-        itemView.setOnClickListener { onClickListener.invoke(cat) }
     }
 
-    internal fun bind(catEntity: CatEntity) {
-        cat = catEntity
+    internal fun bind(favoriteCatEntity: FavoriteCatEntity) {
+        cat = favoriteCatEntity
         Glide.with(itemView)
-            .load(catEntity.url)
+            .load(cat.url)
             .dontAnimate()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.ic_image_placeholder)
