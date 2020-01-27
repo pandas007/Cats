@@ -35,6 +35,7 @@ dependencies {
     implementation dependency.appCompat
     implementation dependency.ktx
     implementation dependency.constraintLayout
+    implementation dependency.recyclerView
 
     implementation dependency.dagger
     kapt dependency.daggerCompiler
@@ -49,6 +50,12 @@ dependencies {
     implementation dependency.moxyMaterial
     implementation dependency.moxyKtx
     kapt dependency.moxyCompiler
+
+    implementation dependency.retrofitConverterGson
+    implementation dependency.retrofitRxAdapter
+
+    implementation dependency.butterKnife
+    kapt dependency.butterKnifeCompiler
 
     api project(path: ':data')
 }
