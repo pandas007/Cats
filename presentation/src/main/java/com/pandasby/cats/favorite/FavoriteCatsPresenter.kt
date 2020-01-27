@@ -31,13 +31,17 @@ class FavoriteCatsPresenter : MvpPresenter<FavoriteCatsView>() {
     private fun subscribeOnFavoriteCatsList() {
         compositeDisposable.add(favoriteCatsInteractor.getFavoriteCatsList()
             .doOnSubscribe { viewState.showProgress() }
-            .subscribe(this::onFavoriteCatListReceived))
+            .subscribe(this::onFavoriteCatListReceived, this::onErrorReceived))
     }
 
     private fun onFavoriteCatListReceived(catList: List<FavoriteCatEntity>) {
         if (catList.isNotEmpty()) {
             viewState.showCats(ArrayList(catList))
         }
+    }
+
+    private fun onErrorReceived(throwable: Throwable) {
+        //TODO обработка ошибки
     }
 
 }

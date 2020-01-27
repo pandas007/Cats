@@ -43,13 +43,17 @@ class CatsPresenter: MvpPresenter<CatsView>() {
     private fun subscribeOnCatList() {
         compositeDisposable.add(getCatsInteractor.getCatListSingle(CATS_LIMIT)
             .doOnSubscribe { viewState.showProgress() }
-            .subscribe(this::onCatListReceived))
+            .subscribe(this::onCatListReceived, this::onErrorReceived))
     }
 
     private fun onCatListReceived(catList: List<CatEntity>) {
         if (catList.isNotEmpty()) {
             viewState.showCats(ArrayList(catList))
         }
+    }
+
+    private fun onErrorReceived(throwable: Throwable) {
+        //TODO обработка ошибки
     }
 
 }
