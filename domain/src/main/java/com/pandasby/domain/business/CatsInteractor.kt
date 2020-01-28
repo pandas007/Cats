@@ -4,7 +4,7 @@ import com.pandasby.domain.executors.PostExecutionThread
 import com.pandasby.domain.repository.CatsRepository
 import javax.inject.Inject
 
-class GetCatsInteractor @Inject constructor(
+class CatsInteractor @Inject constructor(
     postExecutionThread: PostExecutionThread,
     private val catsRepository: CatsRepository
 ) : BaseInteractor(postExecutionThread) {

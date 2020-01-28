@@ -14,4 +14,6 @@ interface CatsView: MvpView {
     fun showProgress()
     @StateStrategyType(SkipStrategy::class)
     fun showAddFavoriteCatMessage()
+    @StateStrategyType(SkipStrategy::class)
+    fun showCatImageSavedMessage()
 }

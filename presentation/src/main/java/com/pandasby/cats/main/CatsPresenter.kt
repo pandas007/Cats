@@ -3,9 +3,11 @@ package com.pandasby.cats.main
 import com.pandasby.cats.app.App
 import com.pandasby.domain.CATS_LIMIT
 import com.pandasby.domain.business.FavoriteCatsInteractor
-import com.pandasby.domain.business.GetCatsInteractor
+import com.pandasby.domain.business.CatsInteractor
+import com.pandasby.domain.business.SourceInteractor
 import com.pandasby.domain.entity.CatEntity
 import com.pandasby.domain.entity.FavoriteCatEntity
+import com.pandasby.domain.entity.Source
 import io.reactivex.disposables.CompositeDisposable
 import moxy.InjectViewState
 import moxy.MvpPresenter
@@ -15,9 +17,11 @@ import javax.inject.Inject
 class CatsPresenter: MvpPresenter<CatsView>() {
 
     @Inject
-    lateinit var getCatsInteractor: GetCatsInteractor
+    lateinit var catsInteractor: CatsInteractor
     @Inject
     lateinit var favoriteCatsInteractor: FavoriteCatsInteractor
+    @Inject
+    lateinit var sourceInteractor: SourceInteractor
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -40,12 +44,13 @@ class CatsPresenter: MvpPresenter<CatsView>() {
         )
     }
 
-    internal fun onCatLongClicked(catEntity: CatEntity) {
-        //TODO save image to storage
+    internal fun saveCatImage(bitmapSource: Source) {
+        sourceInteractor.saveSource(bitmapSource)
+        viewState.showCatImageSavedMessage()
     }
 
     private fun subscribeOnCatList() {
-        compositeDisposable.add(getCatsInteractor.getCatListSingle(CATS_LIMIT)
+        compositeDisposable.add(catsInteractor.getCatListSingle(CATS_LIMIT)
             .doOnSubscribe { viewState.showProgress() }
             .subscribe(this::onCatListReceived, this::onErrorReceived))
     }

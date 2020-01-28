@@ -10,11 +10,13 @@ import com.pandasby.data.db.CatsDatabase
 import com.pandasby.data.db.FavoriteCatsDao
 import com.pandasby.data.repository.CatsRepositoryImpl
 import com.pandasby.data.repository.FavoriteCatsRepositoryImpl
+import com.pandasby.data.repository.SourceRepositoryImpl
 import com.pandasby.data.rest.RestApi
 import com.pandasby.data.rest.RestService
 import com.pandasby.domain.executors.PostExecutionThread
 import com.pandasby.domain.repository.CatsRepository
 import com.pandasby.domain.repository.FavoriteCatsRepository
+import com.pandasby.domain.repository.SourceRepository
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -72,4 +74,8 @@ class AppModule(private val app: Application) {
     @Singleton
     fun getFavoriteCatsRepository(favoriteCatsDao: FavoriteCatsDao): FavoriteCatsRepository =
         FavoriteCatsRepositoryImpl(favoriteCatsDao)
+
+    @Provides
+    @Singleton
+    fun getSourceRepository(): SourceRepository = SourceRepositoryImpl()
 }
