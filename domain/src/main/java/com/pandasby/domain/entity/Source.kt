@@ -1,5 +1,5 @@
 package com.pandasby.domain.entity
 
-//TODO Bitmap clean wrapper -> RENAME
+// Bitmap clean wrapper
 interface Source {
 }
