@@ -66,6 +66,7 @@ class CatsPresenter: MvpPresenter<CatsView>() {
 
     private fun onErrorReceived(throwable: Throwable) {
         viewState.hideRefreshProgress()
+        viewState.showError(throwable.toString())
     }
 
 }

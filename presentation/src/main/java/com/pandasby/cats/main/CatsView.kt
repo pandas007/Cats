@@ -13,6 +13,8 @@ interface CatsView: MvpView {
     fun showCats(catList: ArrayList<CatEntity>)
     @StateStrategyType(SingleStateStrategy::class)
     fun showProgress()
+    @StateStrategyType(SingleStateStrategy::class)
+    fun showError(errorMessage: String)
     @StateStrategyType(OneExecutionStateStrategy::class)
     fun hideRefreshProgress()
     @StateStrategyType(SkipStrategy::class)

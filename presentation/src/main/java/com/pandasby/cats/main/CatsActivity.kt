@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,8 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
     lateinit var progressBar: ProgressBar
     @BindView(R.id.iv_favorite)
     lateinit var favoriteCats: ImageView
+    @BindView(R.id.tv_error)
+    lateinit var error: TextView
 
     private val PERMISSION_REQUEST_CODE = 9
 
@@ -71,8 +74,15 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
     }
 
     override fun showCats(catList: ArrayList<CatEntity>) {
+        error.visibility = View.GONE
         progressBar.visibility = View.GONE
         adapter?.update(catList)
+    }
+
+    override fun showError(errorMessage: String) {
+        error.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
+        error.text = errorMessage
     }
 
     override fun showAddFavoriteCatMessage() {
