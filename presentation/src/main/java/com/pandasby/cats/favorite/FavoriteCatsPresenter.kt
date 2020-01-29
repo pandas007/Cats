@@ -35,9 +35,7 @@ class FavoriteCatsPresenter : MvpPresenter<FavoriteCatsView>() {
     }
 
     private fun onFavoriteCatListReceived(catList: List<FavoriteCatEntity>) {
-        if (catList.isNotEmpty()) {
-            viewState.showCats(ArrayList(catList))
-        }
+        viewState.showCats(ArrayList(catList))
     }
 
     private fun onErrorReceived(throwable: Throwable) {

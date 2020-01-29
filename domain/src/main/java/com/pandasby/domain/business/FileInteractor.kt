@@ -5,12 +5,12 @@ import com.pandasby.domain.executors.PostExecutionThread
 import com.pandasby.domain.repository.FilesRepository
 import javax.inject.Inject
 
-class SourceInteractor @Inject constructor(
+class FileInteractor @Inject constructor(
     postExecutionThread: PostExecutionThread,
     private val filesRepository: FilesRepository
 ) : BaseInteractor(postExecutionThread) {
 
-    fun saveSource(source: Source) {
+    fun saveFile(source: Source) {
         filesRepository.saveFile(source)
     }
 }

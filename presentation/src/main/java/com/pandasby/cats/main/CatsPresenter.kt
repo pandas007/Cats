@@ -4,7 +4,7 @@ import com.pandasby.cats.app.App
 import com.pandasby.domain.CATS_LIMIT
 import com.pandasby.domain.business.FavoriteCatsInteractor
 import com.pandasby.domain.business.CatsInteractor
-import com.pandasby.domain.business.SourceInteractor
+import com.pandasby.domain.business.FileInteractor
 import com.pandasby.domain.entity.CatEntity
 import com.pandasby.domain.entity.FavoriteCatEntity
 import com.pandasby.domain.entity.Source
@@ -21,7 +21,7 @@ class CatsPresenter: MvpPresenter<CatsView>() {
     @Inject
     lateinit var favoriteCatsInteractor: FavoriteCatsInteractor
     @Inject
-    lateinit var sourceInteractor: SourceInteractor
+    lateinit var fileInteractor: FileInteractor
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -45,8 +45,12 @@ class CatsPresenter: MvpPresenter<CatsView>() {
     }
 
     internal fun saveCatImage(bitmapSource: Source) {
-        sourceInteractor.saveSource(bitmapSource)
+        fileInteractor.saveFile(bitmapSource)
         viewState.showCatImageSavedMessage()
+    }
+
+    internal fun requestCatList() {
+        subscribeOnCatList()
     }
 
     private fun subscribeOnCatList() {
@@ -56,13 +60,12 @@ class CatsPresenter: MvpPresenter<CatsView>() {
     }
 
     private fun onCatListReceived(catList: List<CatEntity>) {
-        if (catList.isNotEmpty()) {
-            viewState.showCats(ArrayList(catList))
-        }
+        viewState.showCats(ArrayList(catList))
+        viewState.hideRefreshProgress()
     }
 
     private fun onErrorReceived(throwable: Throwable) {
-        //TODO обработка ошибки
+        viewState.hideRefreshProgress()
     }
 
 }

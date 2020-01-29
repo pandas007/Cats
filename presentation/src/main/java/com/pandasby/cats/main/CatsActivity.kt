@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.pandasby.cats.R
@@ -28,6 +29,8 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
     @InjectPresenter
     lateinit var presenter: CatsPresenter
 
+    @BindView(R.id.srl_container)
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
     @BindView(R.id.rv_cats)
     lateinit var recyclerView: RecyclerView
     @BindView(R.id.progress)
@@ -45,7 +48,6 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
         setContentView(R.layout.activity_cats)
         ButterKnife.bind(this)
 
-
         adapter = CatsAdapter(
             null,
             presenter::onCatClicked,
@@ -57,6 +59,10 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
             setHasFixedSize(true)
         }
 
+        swipeRefreshLayout.setOnRefreshListener {
+            presenter.requestCatList()
+        }
+
         favoriteCats.setOnClickListener{ showFavoriteCatsScreen() }
     }
 
@@ -66,7 +72,6 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
 
     override fun showCats(catList: ArrayList<CatEntity>) {
         progressBar.visibility = View.GONE
-
         adapter?.update(catList)
     }
 
@@ -76,6 +81,10 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
 
     override fun showCatImageSavedMessage() {
         Toast.makeText(this, getString(R.string.cat_image_saved), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun hideRefreshProgress() {
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun onRequestPermissionsResult(
@@ -90,6 +99,7 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
             }
         }
     }
+
 
     private fun checkWriteStoragePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -126,4 +136,5 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
     private fun showFavoriteCatsScreen() {
         startActivity(Intent(this, FavoriteCatsActivity::class.java))
     }
+
 }
