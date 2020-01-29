@@ -43,7 +43,7 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
 
     private val PERMISSION_REQUEST_CODE = 9
 
-    private var adapter: CatsAdapter? = null
+    private lateinit var adapter: CatsAdapter
     private var tempCatBitmapSource: CatBitmapSource? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +76,7 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
     override fun showCats(catList: ArrayList<CatEntity>) {
         error.visibility = View.GONE
         progressBar.visibility = View.GONE
-        adapter?.update(catList)
+        adapter.update(catList)
     }
 
     override fun showError(errorMessage: String) {

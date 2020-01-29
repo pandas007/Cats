@@ -9,6 +9,7 @@ import com.pandasby.domain.entity.CatEntity
 import com.pandasby.domain.entity.FavoriteCatEntity
 import com.pandasby.domain.entity.Source
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import javax.inject.Inject
@@ -24,6 +25,7 @@ class CatsPresenter: MvpPresenter<CatsView>() {
     lateinit var fileInteractor: FileInteractor
 
     private val compositeDisposable = CompositeDisposable()
+    private lateinit var catListDisposable: Disposable
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -50,13 +52,15 @@ class CatsPresenter: MvpPresenter<CatsView>() {
     }
 
     internal fun requestCatList() {
+        compositeDisposable.remove(catListDisposable)
         subscribeOnCatList()
     }
 
     private fun subscribeOnCatList() {
-        compositeDisposable.add(catsInteractor.getCatListObservable(CATS_LIMIT)
+        catListDisposable = catsInteractor.getCatListObservable(CATS_LIMIT)
             .doOnSubscribe { viewState.showProgress() }
-            .subscribe(this::onCatListReceived, this::onErrorReceived))
+            .subscribe(this::onCatListReceived, this::onErrorReceived)
+        compositeDisposable.add(catListDisposable)
     }
 
     private fun onCatListReceived(catList: List<CatEntity>) {
