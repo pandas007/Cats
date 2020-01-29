@@ -1,4 +1,4 @@
-package com.pandasby.cats.main
+package com.pandasby.cats.screens.main
 
 import com.pandasby.domain.entity.CatEntity
 import moxy.MvpView

@@ -1,4 +1,4 @@
-package com.pandasby.cats.main
+package com.pandasby.cats.screens.main
 
 import com.pandasby.cats.app.App
 import com.pandasby.domain.CATS_LIMIT

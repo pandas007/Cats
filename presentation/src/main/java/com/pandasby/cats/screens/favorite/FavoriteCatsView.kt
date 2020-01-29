@@ -1,4 +1,4 @@
-package com.pandasby.cats.favorite
+package com.pandasby.cats.screens.favorite
 
 import com.pandasby.domain.entity.FavoriteCatEntity
 import moxy.MvpView

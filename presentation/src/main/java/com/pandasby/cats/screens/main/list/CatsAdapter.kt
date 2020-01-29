@@ -1,4 +1,4 @@
-package com.pandasby.cats.main.list
+package com.pandasby.cats.screens.main.list
 
 import android.graphics.Bitmap
 import android.view.ViewGroup

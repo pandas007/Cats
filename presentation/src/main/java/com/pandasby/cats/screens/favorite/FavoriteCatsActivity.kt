@@ -1,4 +1,4 @@
-package com.pandasby.cats.favorite
+package com.pandasby.cats.screens.favorite
 
 import android.os.Bundle
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.pandasby.cats.R
-import com.pandasby.cats.favorite.list.FavoriteCatsAdapter
+import com.pandasby.cats.screens.favorite.list.FavoriteCatsAdapter
 import com.pandasby.domain.entity.FavoriteCatEntity
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter

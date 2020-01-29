@@ -1,4 +1,4 @@
-package com.pandasby.cats.favorite.list
+package com.pandasby.cats.screens.favorite.list
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

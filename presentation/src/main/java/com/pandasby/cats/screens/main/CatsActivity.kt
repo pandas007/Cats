@@ -1,4 +1,4 @@
-package com.pandasby.cats.main
+package com.pandasby.cats.screens.main
 
 import android.Manifest
 import android.content.Intent
@@ -18,8 +18,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.pandasby.cats.R
-import com.pandasby.cats.favorite.FavoriteCatsActivity
-import com.pandasby.cats.main.list.CatsAdapter
+import com.pandasby.cats.screens.favorite.FavoriteCatsActivity
+import com.pandasby.cats.screens.main.list.CatsAdapter
 import com.pandasby.data.entity.CatBitmapSource
 import com.pandasby.domain.entity.CatEntity
 import moxy.MvpAppCompatActivity

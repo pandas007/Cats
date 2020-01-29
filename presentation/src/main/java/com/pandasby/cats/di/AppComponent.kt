@@ -1,14 +1,19 @@
 package com.pandasby.cats.di
 
 import android.app.Application
-import com.pandasby.cats.favorite.FavoriteCatsPresenter
-import com.pandasby.cats.main.CatsPresenter
+import com.pandasby.cats.screens.favorite.FavoriteCatsPresenter
+import com.pandasby.cats.screens.main.CatsPresenter
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class, RestModule::class, DatabaseModule::class, ReposModule::class])
+@Component(modules = [
+    AppModule::class,
+    RestModule::class,
+    DatabaseModule::class,
+    ReposModule::class
+])
 interface AppComponent {
 
     fun inject(presenter: CatsPresenter)
