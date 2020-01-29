@@ -54,7 +54,7 @@ class CatsPresenter: MvpPresenter<CatsView>() {
     }
 
     private fun subscribeOnCatList() {
-        compositeDisposable.add(catsInteractor.getCatListSingle(CATS_LIMIT)
+        compositeDisposable.add(catsInteractor.getCatListObservable(CATS_LIMIT)
             .doOnSubscribe { viewState.showProgress() }
             .subscribe(this::onCatListReceived, this::onErrorReceived))
     }

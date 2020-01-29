@@ -9,7 +9,7 @@ class CatsInteractor @Inject constructor(
     private val catsRepository: CatsRepository
 ) : BaseInteractor(postExecutionThread) {
 
-    fun getCatListSingle(limit: Int) = catsRepository.getCatListSingle(limit)
+    fun getCatListObservable(limit: Int) = catsRepository.getCatListObservable(limit)
         .subscribeOn(threadExecution)
         .observeOn(postExecutionThread)
 }

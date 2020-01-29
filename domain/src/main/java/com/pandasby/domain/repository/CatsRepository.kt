@@ -1,9 +1,9 @@
 package com.pandasby.domain.repository
 
 import com.pandasby.domain.entity.CatEntity
-import io.reactivex.Single
+import io.reactivex.Observable
 
 interface CatsRepository {
 
-    fun getCatListSingle(limit: Int): Single<List<CatEntity>>
+    fun getCatListObservable(limit: Int): Observable<List<CatEntity>>
 }
