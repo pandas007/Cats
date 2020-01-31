@@ -52,9 +52,8 @@ class CatsActivity : MvpAppCompatActivity(), CatsView {
         ButterKnife.bind(this)
 
         adapter = CatsAdapter(
-            null,
-            presenter::onCatClicked,
-            this::onCatLongClicked
+            onClickListener = presenter::onCatClicked,
+            onLongClickListener = this::onCatLongClicked
         )
         with(recyclerView) {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

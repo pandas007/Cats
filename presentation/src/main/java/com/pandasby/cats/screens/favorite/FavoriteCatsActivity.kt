@@ -26,14 +26,14 @@ class FavoriteCatsActivity : MvpAppCompatActivity(), FavoriteCatsView {
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
-    private var adapter: FavoriteCatsAdapter? = null
+    private lateinit var adapter: FavoriteCatsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite_cats)
         ButterKnife.bind(this)
 
-        adapter = FavoriteCatsAdapter(null)
+        adapter = FavoriteCatsAdapter()
         with(recyclerView) {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = this@FavoriteCatsActivity.adapter
@@ -46,7 +46,7 @@ class FavoriteCatsActivity : MvpAppCompatActivity(), FavoriteCatsView {
 
     override fun showCats(catList: ArrayList<FavoriteCatEntity>) {
         progressBar.visibility = View.GONE
-        adapter?.update(catList)
+        adapter.update(catList)
     }
 
     override fun showProgress() {

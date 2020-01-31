@@ -2,10 +2,12 @@ package com.pandasby.cats.screens.main.list
 
 import android.graphics.Bitmap
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.pandasby.cats.utils.SimpleDiffUtilCallback
 import com.pandasby.domain.entity.CatEntity
 
-class CatsAdapter(private var catList: ArrayList<CatEntity>?,
+class CatsAdapter(private var catList: ArrayList<CatEntity> = arrayListOf(),
                   private val onClickListener: (CatEntity) -> Unit,
                   private val onLongClickListener: (Bitmap, String) -> Unit) : RecyclerView.Adapter<CatViewHolder>() {
 
@@ -14,17 +16,24 @@ class CatsAdapter(private var catList: ArrayList<CatEntity>?,
     }
 
     override fun getItemCount(): Int {
-        return catList?.size ?: 0
+        return catList.size
     }
 
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
-        catList?.let {
-            holder.bind(it[position])
-        }
+        holder.bind(catList[position])
     }
 
-    fun update(newCatList: ArrayList<CatEntity>?) {
+    fun update(newCatList: ArrayList<CatEntity>) {
+        DiffUtil.calculateDiff(
+            SimpleDiffUtilCallback(
+                catList,
+                newCatList,
+                this::catsSameCheckFunc)
+        ).dispatchUpdatesTo(this)
+
         catList = newCatList
-        notifyDataSetChanged()
     }
+
+    private fun catsSameCheckFunc(firstCat: CatEntity, secondCat: CatEntity) =
+        firstCat.id == secondCat.id
 }

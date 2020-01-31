@@ -1,10 +1,12 @@
 package com.pandasby.cats.screens.favorite.list
 
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.pandasby.cats.utils.SimpleDiffUtilCallback
 import com.pandasby.domain.entity.FavoriteCatEntity
 
-class FavoriteCatsAdapter(private var catList: ArrayList<FavoriteCatEntity>?)
+class FavoriteCatsAdapter(private var catList: ArrayList<FavoriteCatEntity> = arrayListOf())
     : RecyclerView.Adapter<FavoriteCatViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteCatViewHolder {
@@ -12,17 +14,24 @@ class FavoriteCatsAdapter(private var catList: ArrayList<FavoriteCatEntity>?)
     }
 
     override fun getItemCount(): Int {
-        return catList?.size ?: 0
+        return catList.size
     }
 
     override fun onBindViewHolder(holder: FavoriteCatViewHolder, position: Int) {
-        catList?.let {
-            holder.bind(it[position])
-        }
+        holder.bind(catList[position])
     }
 
-    fun update(newCatList: ArrayList<FavoriteCatEntity>?) {
+    fun update(newCatList: ArrayList<FavoriteCatEntity>) {
+        DiffUtil.calculateDiff(
+            SimpleDiffUtilCallback(
+                catList,
+                newCatList,
+                this::catsSameCheckFunc)
+        ).dispatchUpdatesTo(this)
+
         catList = newCatList
-        notifyDataSetChanged()
     }
+
+    private fun catsSameCheckFunc(firstCat: FavoriteCatEntity, secondCat: FavoriteCatEntity) =
+        firstCat.id == secondCat.id
 }
